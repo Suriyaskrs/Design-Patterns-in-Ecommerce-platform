@@ -225,8 +225,8 @@
                       <EmptySpace pref="48" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
-                      <Component id="productPhoto" min="-2" pref="250" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                      <Component id="productPhoto" min="-2" pref="246" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="productInfoBrand5" alignment="3" min="-2" max="-2" attributes="0"/>

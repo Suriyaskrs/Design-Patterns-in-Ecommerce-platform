@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import static project.MainPage.logger;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -41,6 +43,7 @@ public class DeliveryAddress extends javax.swing.JFrame {
         finalize = new javax.swing.JButton();
         closeButton1 = new javax.swing.JButton();
         usernameField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
 
@@ -88,36 +91,43 @@ public class DeliveryAddress extends javax.swing.JFrame {
         usernameField1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         usernameField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 77, 64)));
 
+        jButton1.setText("Payment");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(usernameField1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(closeButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(62, 62, 62)
                 .addComponent(finalize, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(usernameField1)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap(159, Short.MAX_VALUE)
+                .addGap(149, 149, 149)
                 .addComponent(jLabel13)
-                .addGap(156, 156, 156))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel13)
-                .addGap(46, 46, 46)
+                .addGap(31, 31, 31)
                 .addComponent(usernameField1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(finalize, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(closeButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(closeButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(29, 29, 29))
         );
 
@@ -180,32 +190,49 @@ public class DeliveryAddress extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_closeButton1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here: // you can also get this from a text field
+
+        String[] options = {"PayPal", "Stripe"};
+        String choice = (String) JOptionPane.showInputDialog(
+            null,
+            "Choose Payment Method:",
+            "Payment Options",
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]
+        );
+
+        PaymentGateway gateway = null;
+
+        if ("PayPal".equals(choice)) {
+            gateway = new PayPalAdapter();
+        } else if ("Stripe".equals(choice)) {
+            gateway = new StripeAdapter();
+        }
+
+        if (gateway != null) {
+            gateway.pay();
+            JOptionPane.showMessageDialog(null, "Amount paid through " + choice);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton closeButton;
     private javax.swing.JButton closeButton1;
     private javax.swing.JButton finalize;
-    private javax.swing.JButton getPasswordButton;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField usernameField;
     private javax.swing.JTextField usernameField1;
     // End of variables declaration//GEN-END:variables
 }

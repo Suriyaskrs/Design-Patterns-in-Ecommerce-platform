@@ -21,7 +21,7 @@ import javax.swing.table.TableModel;
  *
  * @author Void
  */
-public class MainPage extends javax.swing.JFrame {
+public class MainPage extends javax.swing.JFrame implements MessageObserver{
 
     //Boolean isVisible = true;
     static Object[] data = new Object[4];   
@@ -29,10 +29,19 @@ public class MainPage extends javax.swing.JFrame {
     static String tot = "";
     static boolean signInStatus = false;
     static int wrongPass = 0;
+    public MessageData sharedData;
     
-    public MainPage() {
+    
+     public void update(String message) {
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(this, "New Message: " + message);
+        });
+    }
+    public MainPage(MessageData sharedData) {
         initComponents();
-        
+        this.sharedData = sharedData;
+        sharedData.addObserver(this);
+   
         //Adding last three entries from every categories in home
         
         ArrayList<ProductList> list = ElectronicsDB.homePageContent();
@@ -551,7 +560,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(mobilesButton)
                 .addGap(1, 1, 1)
                 .addComponent(kidsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
                 .addComponent(cartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(accountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1378,7 +1387,7 @@ public class MainPage extends javax.swing.JFrame {
             String temp = list.get(i).getMimage();
             ImageIcon ii = new ImageIcon(getClass().getResource("/products/kids/"+temp));
             Image resizedImage = ii.getImage();
-            ii = new ImageIcon(resizedImage.getScaledInstance(160, 160, Image.SCALE_SMOOTH));
+            ii = new ImageIcon(resizedImage.getScaledInstance(227, 246, Image.SCALE_SMOOTH));
             
             rowData[5] = ii;
             model.addRow(rowData);
@@ -1469,7 +1478,7 @@ public class MainPage extends javax.swing.JFrame {
             String temp = list.get(i).getMimage();
             ImageIcon ii = new ImageIcon(getClass().getResource("/products/electronics/"+temp));
             Image resizedImage = ii.getImage();
-            ii = new ImageIcon(resizedImage.getScaledInstance(160, 160, Image.SCALE_SMOOTH));
+            ii = new ImageIcon(resizedImage.getScaledInstance(227, 246, Image.SCALE_SMOOTH));
             
             rowData[5] = ii;
             model.addRow(rowData);
@@ -1707,9 +1716,12 @@ public class MainPage extends javax.swing.JFrame {
     
     private void LogInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInButtonActionPerformed
         // TODO add your handling code here: 
-        
-        JFrame adminPanel = new AdminPanel();
-        if(signInUsernameField.getText().equals("admin") && signInPasswordField.getText().equals("admin")){
+        MessageData sharedData = new MessageData();
+        JFrame adminPanel = new AdminPanel(sharedData);
+        AuthSystem authSystem = new AuthSystem();
+        //if(signInUsernameField.getText().equals("admin") && signInPasswordField.getText().equals("admin")){
+        SignedIn userLogin = new SignedIn();
+        if(userLogin.login(signInUsernameField.getText(),signInPasswordField.getText())){
             signInStatus = true;
             adminPanel.setVisible(true);
             logger = signInUsernameField.getText();
@@ -1925,6 +1937,7 @@ public class MainPage extends javax.swing.JFrame {
             Date date = new Date();
             JFrame da = new DeliveryAddress(logger, Integer.parseInt(billLabel.getText()), date.toString());
             da.setVisible(true);
+            
         }
     }//GEN-LAST:event_buyButtonActionPerformed
 
@@ -2200,12 +2213,14 @@ public class MainPage extends javax.swing.JFrame {
 //                new MainPage().setVisible(true);
 //            }
 //        });
-        JFrame newMain = new MainPage();
+        MessageData sharedData = new MessageData();
+        JFrame newMain = new MainPage(sharedData);
         newMain.setTitle("Craftopia");
         newMain.setVisible(true);
         newMain.setResizable(true);
         
-        
+        AdminPanel ap = new AdminPanel(sharedData);
+        ap.setVisible(true);
         
         
     }

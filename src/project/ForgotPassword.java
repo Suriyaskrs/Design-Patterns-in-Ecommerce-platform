@@ -20,6 +20,7 @@ import javax.mail.internet.MimeMessage;
 public class ForgotPassword {
 
     public static void Send(final String username, final String password, String recipientEmail, String title, String message) throws AddressException, MessagingException {
+        System.out.print(password);
         ForgotPassword.Send(username, password, recipientEmail, "", title, message);
     }
 

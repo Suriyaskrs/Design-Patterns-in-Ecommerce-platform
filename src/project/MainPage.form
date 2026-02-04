@@ -234,7 +234,7 @@
                       <Component id="mobilesButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                       <Component id="kidsButton" min="-2" pref="147" max="-2" attributes="0"/>
-                      <EmptySpace pref="308" max="32767" attributes="0"/>
+                      <EmptySpace pref="306" max="32767" attributes="0"/>
                       <Component id="cartButton" min="-2" pref="105" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="accountButton" min="-2" pref="53" max="-2" attributes="0"/>

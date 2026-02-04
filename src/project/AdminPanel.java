@@ -30,9 +30,11 @@ public class AdminPanel extends javax.swing.JFrame {
      */
     boolean imageChooser = false;
     String path;
+    MessageData sharedData;
     
-    public AdminPanel() {
+    public AdminPanel(MessageData sharedData) {
         initComponents();
+        this.sharedData=sharedData;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
     }
@@ -54,6 +56,7 @@ public class AdminPanel extends javax.swing.JFrame {
         updateButton = new javax.swing.JButton();
         checkStockButton = new javax.swing.JButton();
         billingButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         cardAdminParentLayout = new javax.swing.JPanel();
         updatePanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -240,6 +243,13 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Message");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -251,13 +261,17 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addComponent(checkStockButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(billingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(740, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(658, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(billingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(billingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(checkStockButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -926,6 +940,14 @@ public class AdminPanel extends javax.swing.JFrame {
         BillingDB.deleteBillings();
     }//GEN-LAST:event_delEntry1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         String msg = JOptionPane.showInputDialog(this, "Enter message to send:");
+            if (msg != null && !msg.trim().isEmpty()) {
+                sharedData.setMessage(msg);
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LogInButton;
@@ -940,6 +962,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton delEntry1;
     private javax.swing.JTextField delEntryModel;
     private javax.swing.JComboBox<String> delUpdateCat;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

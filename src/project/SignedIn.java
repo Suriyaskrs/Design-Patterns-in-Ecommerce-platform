@@ -14,6 +14,8 @@ public class SignedIn extends javax.swing.JFrame {
     /**
      * Creates new form SignedIn
      */
+    private AuthSystem authSystem = new AuthSystem();
+
     public SignedIn() {
         initComponents();
         setLocationRelativeTo(null);
@@ -197,6 +199,14 @@ public class SignedIn extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_goBackButtonActionPerformed
+
+    public boolean login(String username, String password) {
+   if (authSystem.verifyCredentials(username, password) && authSystem.checkSessionToken() && authSystem.checkSessionToken()) {
+     return true;
+   } else {
+     return false;
+   }
+ }
 
 
 

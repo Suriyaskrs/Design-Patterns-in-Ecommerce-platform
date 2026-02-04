@@ -95,7 +95,7 @@ public class DbConnector {
            if(rs.next()){
                 query[0]=rs.getString("email");
                 query[1]=rs.getString("password");
-                
+                System.out.print(query[1]);
                 ForgotPassword.Send("blackbengalshopping","projectinjava",query[0],"Password Recovery","Your password: "+query[1]);
                 
                 NotificationForm nf = new NotificationForm();
